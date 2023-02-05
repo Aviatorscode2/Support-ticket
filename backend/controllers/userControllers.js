@@ -8,7 +8,8 @@ const registerUser = (req, res) => {
 
     // Simple validation
     if(!name || !email || !password) {
-        return res.status(400).json({msg: 'Please enter all fields'});
+        res.status(400);
+        throw new Error('Please enter all fields');
     }
 
     res.send('Register Route')
