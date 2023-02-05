@@ -10,6 +10,9 @@ app.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome to the Support Ticket API' });
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // routes
 app.use('/api/users', require('./routes/userRoutes'));
 
