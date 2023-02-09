@@ -27,7 +27,29 @@ const getTickets = asyncHandler(async (req, res) => {
 // @access  Private
 
 const createTicket = asyncHandler(async (req, res) => {
-    res.status(200).json({message: 'createTicket'});
+  const { product, description } = req.body;
+
+  if (!product || !description) {
+    res.status(400);
+    throw new Error('Please select a product and add a description');
+  }
+
+  // get user using the ID in the JWT
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+    // create ticket
+    const ticket = await Ticket.create({
+        product,
+        description,
+        user: req.user.id,
+        status: 'New'
+    });
+  res.status(201).json(ticket);
 });
 
 module.exports = {
