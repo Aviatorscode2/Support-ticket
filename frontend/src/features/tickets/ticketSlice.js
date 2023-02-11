@@ -28,6 +28,23 @@ export const createTicket = createAsyncThunk(
 
 )
 
+// Get user tickets
+
+export const getUserTickets = createAsyncThunk(
+    'tickets/getUserTickets',
+    async (_, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().auth.user.token
+            return await ticketService.getUserTickets(token)
+        } catch (error) {
+            const message = (error.message && error.message.data && error.message.data.message) || error.message || error.toString()
+
+            return thunkAPI.rejectWithValue(message)
+        }
+    }
+
+)
+
 export const ticketSlice = createSlice({
     name: 'ticket',
     initialState,
@@ -35,16 +52,32 @@ export const ticketSlice = createSlice({
         reset: (state) => initialState
     },
     extraReducers: (builder) => {
-        builder.addCase(createTicket.pending, (state) => {
-            state.isLoading = true
-        }).addCase(createTicket.fulfilled, (state) => {
+        builder
+          .addCase(createTicket.pending, (state) => {
+            state.isLoading = true;
+          })
+          .addCase(createTicket.fulfilled, (state) => {
             state.isLoading = false;
-            state.isSuccess = true
-        }).addCase(createTicket.rejected, (state, action) => {
-             state.isLoading = false;
-            state.isError = true
-            state.message = action.payload
-        })
+            state.isSuccess = true;
+          })
+          .addCase(createTicket.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+          })
+          .addCase(getUserTickets.pending, (state) => {
+            state.isLoading = true;
+          })
+          .addCase(getUserTickets.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.tickets = action.payload;
+          })
+          .addCase(getUserTickets.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+          });
     }
 });
 

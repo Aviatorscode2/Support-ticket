@@ -1,0 +1,32 @@
+/* eslint-disable no-unused-vars */
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { getUserTickets, reset } from "../features/tickets/ticketSlice"
+import Spinner from "../components/Spinner"
+import BackButton from "../components/BackButton"
+
+function Tickets() {
+    const { tickets, isLoading, isSuccess } = useSelector((state) => state.tickets)
+    const dispatch = useDispatch()
+
+
+    useEffect(() => {
+        dispatch(getUserTickets())
+        return () => {
+            if(isSuccess) {
+                dispatch(reset())
+            }
+        }
+    }, [dispatch, isSuccess])
+
+    if (isLoading) {
+        return <Spinner />
+    }
+
+    
+  return (
+    <div>Tickets</div>
+  )
+}
+
+export default Tickets
