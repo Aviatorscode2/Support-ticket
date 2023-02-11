@@ -227,7 +227,7 @@ h3 {
 }
 
 .status {
-  background-color: #333;
+  background-color: green;
   color: #fff;
   width: 100px;
   padding: 0 20px;
@@ -248,7 +248,6 @@ h3 {
   color: #fff;
   border-radius: 10px;
 }
-
 .status-closed {
   background-color: darkred;
   color: #fff;
