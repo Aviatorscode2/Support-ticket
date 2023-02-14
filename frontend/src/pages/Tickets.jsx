@@ -10,15 +10,18 @@ function Tickets() {
     const { tickets, isLoading, isSuccess } = useSelector((state) => state.tickets)
     const dispatch = useDispatch()
 
-
     useEffect(() => {
-        dispatch(getUserTickets())
         return () => {
             if(isSuccess) {
                 dispatch(reset())
             }
         }
     }, [dispatch, isSuccess])
+
+
+    useEffect(() => {
+        dispatch(getUserTickets())
+    }, [dispatch])
 
     if (isLoading) {
         return <Spinner />
@@ -39,7 +42,6 @@ function Tickets() {
             {tickets.map((ticket) => (
                <TicketItem key={ticket._id} ticket={ticket} />
             ))}
-            
         </div>
     </>
   )
