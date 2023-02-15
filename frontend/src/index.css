@@ -316,7 +316,7 @@ h3 {
   right: 20px;
 }
 
-.btn-close {
+/* .btn-close {
   background: none;
   border: none;
   color: #000;
@@ -325,6 +325,24 @@ h3 {
   right: 5px;
   font-size: 16px;
   cursor: pointer;
+} */
+
+.btn-close {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 5px;
+    right: 5px;
 }
 
 .btn-close:hover {
